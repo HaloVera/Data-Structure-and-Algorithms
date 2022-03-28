@@ -105,6 +105,50 @@ struct SNode{
 
 ### 2.3 队列(Queue)
 
+**队列**：具有一定操作约束的线性表
 
+数据插入：入队列（AddQ）
+
+数据删除：出队列（DeleteQ)
+
+先进先出：FIFO
+
+------
+
+队列的顺序存储实现
+
+​	队列的顺序存储结构通常由一个一位数组和一个记录队列头元素位置的变量front以及一个记录队列尾元素位置的变量rear组成。
+
+```c
+#define MaxSize
+struct QNode {
+  ElementType Data[MaxSize];
+  int front; // front 指向第一个元素的前一个位置
+  int rear;	// rear 指向最后一个元素所在位置
+};
+typedef struct QNode *Queue;
+```
+
+为解决空间浪费问题，引入“顺环队列”
+
+------
+
+队列的链式存储实现
+
+​	队列的链式存储结构也可以用一个单链表实现。插入和删除操作分别在链表的两头进行；
+
+```c
+struct Node{
+  ElementType Data;
+  struct Node *Next;
+};
+struct QNode{
+  struct Node *rear;
+  struct Node *front;
+};
+typedef struct QNode *Queue;
+
+```
 
 ### 2.4 应用实例：多项式加法运算
+
