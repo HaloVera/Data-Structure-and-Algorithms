@@ -58,7 +58,7 @@ int BinarySearch (List Tbl, ElementType K) {
 
 **树的表示**（儿子-兄弟表示法）
 
-![](/Users/vera/Desktop/Screen Shot 2022-04-08 at 10.14.10 AM.png)
+![](/Users/vera/Desktop/Data-Structure-and-Algorithms/Data-Structure/Chapter3/Screen Shot 2022-04-08 at 10.14.10 AM.png)
 
 ### 3.2 二叉树及存储结构
 
@@ -144,4 +144,101 @@ void LevelOrderTraversal(BinTree BT) // 层次遍历，从上到下，从左到�
    
 
 ### 3.3 二叉树的遍历
+
+**先序遍历**：
+
+	1. 访问根结点
+ 	2. 先序遍历其左子树
+ 	3. 先序遍历其右子树
+
+```c
+void PreOrderTraversal(BinTree BT) {
+  if (BT) {
+    printf("%d", BT->Data);
+    PreOrderTraversal(BT->Left);
+    PreOrderTraversal(BT->Right);
+  }
+}
+```
+
+------
+
+**中序遍历**
+
+	1. 中序遍历左子树
+ 	2. 访问根结点
+ 	3. 中序遍历右子树
+
+```c
+void InOrderTraversal(BinTree BT) {
+  if (BT) {
+    InOrderTraversal(BT->Left);
+    printf("%d", BT->Data);
+    InOrderTraversal(BT->Right);
+  }
+}
+```
+
+------
+
+**后序遍历**
+
+	1. 后序遍历左子树
+ 	2. 后序遍历右子树
+ 	3. 访问根结点
+
+```c
+void PostOrderTraversal(BinTree BT) {
+  PostOrderTraversal(BT->Left);
+  PostOrderTraversal(BT->Right);
+  printf("%d", BT->Data);
+}
+```
+
+------
+
+先序，中序，后序遍历过程：遍历过程中经过结点的路线一样，只是访问各结点的时机不同。
+
+------
+
+**二叉树的中序遍历非遍历递归算法**（堆栈）
+
+```c
+void InOrderTraversal(BinTree BT) {
+  BinTree T = BT;
+  Stack S = CreateStack(MaxSize);
+  while (T || !isEmpty(S)) {
+    while (T) {
+      Push(S, T);
+      T = T->Left;
+    }
+    if(!IsEmpty(S)) {
+      T = Pop(S);
+      printf("%5d", T->Data);
+      T = T->Right;
+    }
+  }
+}
+```
+
+------
+
+**层序遍历**
+
+队列实现：遍历从根结点开始，首先将根结点入队，然后开始执行循环：结点出队、访问该结点、其左右儿子入队
+
+```c
+void LevelOrderTraversal(BinTree BT) {
+  Queue Q; BinTree T;
+  if(!BT) return;
+  Q = createQueue(MaxSize);
+  AddQ(Q, BT);
+  while (!isEmptyQ(Q)) {
+    T = DeleteQ(Q);
+    printf("%d\n", T->Data);
+    if(T->Left) AddQ(Q, T->Left);
+    if(T->Right) AddQ(Q, T->Right);
+  }
+}
+```
 
